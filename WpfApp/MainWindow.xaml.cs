@@ -163,18 +163,18 @@ namespace WpfApp
 
         private void CloseBrowser() {
             Interop.Instance.ConnectChange -= onConnectChange;
-            if (process != null && !process.HasExited)
-            {
-                try
-                {
-                    process.Kill();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Kill error: " + ex.Message);
-                }
-                process = null;
-            }
+            //if (process != null && !process.HasExited)
+            //{
+            //    try
+            //    {
+            //        process.Kill();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine("Kill error: " + ex.Message);
+            //    }
+            //    process = null;
+            //}
         }
 
         private Point ptStart = new Point(-1, -1);

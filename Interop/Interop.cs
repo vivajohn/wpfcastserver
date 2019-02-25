@@ -30,7 +30,7 @@ namespace InteropDll
             }
         }
 
-        public readonly string PortNumber = "31468";
+        public readonly string PortNumber = "31469";
         public event EventHandler OpenFileDialog;
         public event EventHandler Dragging;
         public event EventHandler ConnectChange;
@@ -86,9 +86,10 @@ namespace InteropDll
             Playlist = libraries.MakePlaylist(filePaths);
         }
 
-        public Libraries.LibInfo SaveLibrary(Libraries.LibInfo libInfo)
+        public Libraries.LibHeader SaveLibrary(Libraries.LibInfo libInfo)
         {
-            return libraries.Save(libInfo);
+            libInfo = libraries.Save(libInfo);
+            return new Libraries.LibHeader() { libPath = libInfo.libPath, name = libInfo.name };
         }
 
         public void DeleteLibrary(Libraries.LibHeader libHeader)

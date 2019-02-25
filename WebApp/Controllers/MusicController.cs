@@ -18,16 +18,7 @@ namespace WebApp.Controllers
     [ApiController]
     public class MusicController : ControllerBase
     {
-        //public MusicController() { }
-
-        // GET api/music
-        [HttpGet]
-        public ActionResult<string> Get()
-        {
-            return JsonConvert.SerializeObject(new { running = true });
-        }
-
-        // POST api/playitem
+        // POST api/playitem - plays back an audio file
         [HttpPost("playitem")]
         public FileStreamResult Playitem([FromBody] PlayItem item)
         {
@@ -35,7 +26,7 @@ namespace WebApp.Controllers
             return new FileStreamResult(stream, "application/octet-stream");
         }
 
-        // POST api/radio
+        // GET api/radio - plays back internet radio
         [HttpGet("radio/{id}")]
         public async Task<FileStreamResult> Radio(string id)
         {
@@ -46,104 +37,18 @@ namespace WebApp.Controllers
             return new FileStreamResult(stream, "audio/mpeg");
         }
 
-        // POST api/trace
+        // GET api/music - can be used to test if the server is running
+        [HttpGet]
+        public ActionResult<string> Get()
+        {
+            return JsonConvert.SerializeObject(new { running = true });
+        }
+
+        // POST api/trace - for debugging
         [HttpPost("trace")]
         public void Trace([FromBody] string value)
         {
             System.Diagnostics.Debug.WriteLine("**** " + value);
         }
-
-        // GET api/music
-        //[HttpGet("peeknext")]
-        //public ActionResult<object> PeekNext()
-        //{
-        //    var type = playlist.PeekNext().StartsWith("http") ? "audio/mpeg" : "application/octet-stream";
-        //    return new { contentType = type };
-        //}
-
-        // Make method for returning just radio stream
-        //[HttpGet("radio/{id}")]
-        //public async Task<FileStreamResult> Radio(int id)
-        //{
-        //    var item = this.playlist.FileList.Single(x => x.id == id);
-        //    var client = new HttpClient();
-        //    var stream = await client.GetStreamAsync(item.url);
-        //    var fs = new FileStreamResult(stream, "audio/mpeg");
-        //    return fs;
-        //}
-        //public async Task<FileStreamResult> Radio()
-        //{
-        //    string contentType;
-        //    contentType = "audio/mpeg";
-        //    //contentType = "application/octet-stream";
-        //    try
-        //    {
-        //        var client = new HttpClient();
-        //        Stream stream;
-        //        var name = playlist.Next();
-        //        stream = await client.GetStreamAsync(name);
-        //        var fs = new FileStreamResult(stream, contentType);
-        //        return fs;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-        //        throw;
-        //    }
-        //    //var fs = new FileStreamResult(stream, contentType);
-        //    //return fs;
-        //}
-
-        // GET next file to play
-        //[HttpGet("next")]
-        //public async Task<FileStreamResult> Next()
-        //{
-        //    //if (fstream != null && fstream.Position < fstream.Length)
-        //    //{
-        //    //    return fstream;
-        //    //}
-        //    var name = playlist.Next();
-        //    Stream stream;
-        //    string contentType;
-        //    if (name.StartsWith("http")) 
-        //    {
-        //        contentType = "audio/mpeg";
-        //        //contentType = "application/octet-stream";
-        //        var client = new HttpClient();
-        //        stream = await client.GetStreamAsync(name);
-        //    }
-        //    else
-        //    {
-        //        contentType = "application/octet-stream";
-        //        stream = new FileStream(name, FileMode.Open, FileAccess.Read);
-        //    }
-        //    var fstream = new FileStreamResult(stream, contentType);
-        //    return fstream;
-        //    //return new FileStreamResult(stream, "application/octet-stream");
-        //}
-
-        // POST api/playfile
-        //[HttpGet("playfile/{id}")]
-        //public FileStreamResult Playfile(int id)
-        //{
-        //    var item = this.playlist.FileList.Single(x => x.id == id);
-        //    var stream = new FileStream(item.url, FileMode.Open, FileAccess.Read);
-        //    return new FileStreamResult(stream, "application/octet-stream");
-        //}
-
-        // POST api/playlist
-        //[HttpPost("playlist")]
-        //public void Playlist([FromBody] PlayItem[] items)
-        //{
-        //    // TO DO: test for duplicates?
-        //    playlist.FileList.AddRange(items);
-        //    hub.AddItems(playlist.FileList);
-        //}
-
-        // DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

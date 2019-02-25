@@ -65,8 +65,9 @@ namespace WebApp
 
         public async Task SaveLibrary(Libraries.LibInfo libInfo)
         {
-            await SendLibrary(Interop.Instance.SaveLibrary(libInfo));
+            var libHeader = Interop.Instance.SaveLibrary(libInfo);
             await SendLibraryNames(Interop.Instance.LibraryNames);
+            await SendLibrarySaved(libHeader);
         }
 
         public async Task DeleteLibrary(Libraries.LibHeader libHeader)
@@ -100,16 +101,21 @@ namespace WebApp
             await _context.Clients.All.SendAsync("LibraryNames", JsonConvert.SerializeObject(names));
         }
 
-        public async Task MakeNewLibrary(Libraries.LibInfo libInfo)
-        {
-            libInfo = Interop.Instance.SaveLibrary(libInfo);
-            await SendLibrary(libInfo);
-            await GetLibraryNames();
-        }
+        //public async Task MakeNewLibrary(Libraries.LibInfo libInfo)
+        //{
+        //    libInfo = Interop.Instance.SaveLibrary(libInfo);
+        //    await SendLibrary(libInfo);
+        //    await GetLibraryNames();
+        //}
 
         public async Task SendLibrary(Libraries.LibInfo libInfo)
         {
             await _context.Clients.All.SendAsync("Library", JsonConvert.SerializeObject(libInfo));
+        }
+
+        private async Task SendLibrarySaved(Libraries.LibHeader libHeader)
+        {
+            await _context.Clients.All.SendAsync("LibrarySaved", JsonConvert.SerializeObject(libHeader));
         }
 
         public async Task GetLibraryNames()

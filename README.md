@@ -17,6 +17,8 @@ occasional stuttering. So the desktop application plays the file or station and 
 For security reasons, web pages cannot access the local file system. For this reason, the desktop application
 manages saving and serving playlists. One can drag and drop files onto the web page, but this will be
 intercepted by the desktop application and the list will be sent back to the web page.
+
+You can see a demo [here](https://youtu.be/RXzwKv5zNLY).
  
 **Features**
  1. Files may be uploaded using the upload button or dragging and dropping files onto the page
